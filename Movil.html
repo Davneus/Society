@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOCIETY: Cuidado para la Piel</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F6F6F6;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #A54FB7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 10px;
+            animation: logoBounce 2s infinite;
+        }
+
+        @keyframes logoBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .intro {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .intro h2 {
+            font-size: 2rem;
+        }
+
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .product {
+            width: 90%;
+            max-width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .product:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .product img {
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+            transition: transform 0.5s ease;
+        }
+
+        .product:hover img {
+            transform: scale(1.1);
+        }
+
+        .info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .info h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .info p {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .info .price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #A54FB7;
+        }
+
+        .product-details {
+            display: none;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-details h3 {
+            font-size: 2rem;
+            color: #A54FB7;
+        }
+
+        .product-details p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #A54FB7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #933F9D;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #A54FB7;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #A54FB7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #933F9D;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 600px) {
+            .gallery {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .product {
+                width: 30%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://i.imgur.com/A7cbja5.png" alt="Logo de Society">
+    <h1>Productos para el Cuidado de la Piel</h1>
+</header>
+
+<div class="container">
+    <div class="intro">
+        <h2>Bienvenido a nuestra Línea de Cuidado de la Piel</h2>
+        <p>Descubre nuestros productos premium diseñados para revitalizar tu piel.</p>
+    </div>
+
+    <div class="gallery">
+        <div class="product" onclick="showDetails('moisturizer')">
+            <img src="https://i.imgur.com/kAHGxnt.jpeg" alt="Crema Hidratante">
+            <div class="info">
+                <h3>Crema Hidratante</h3>
+                <p>Hidrata y nutre tu piel en profundidad.</p>
+                <p class="price">$120,000 COP</p>
+            </div>
+        </div>
+        
+        <div class="product" onclick="showDetails('serum')">
+            <img src="https://i.imgur.com/E1tZZ8g.jpeg" alt="Sérum de Vitamina C">
+            <div class="info">
+                <h3>Sérum de Vitamina C</h3>
+                <p>Ilumina y rejuvenece tu piel.</p>
+                <p class="price">$140,000 COP</p>
+            </div>
+        </div>
+
+        <div class="product" onclick="showDetails('mask')">
+            <img src="https://i.imgur.com/UORTIjW.jpeg" alt="Mascarilla de Noche">
+            <div class="info">
+                <h3>Mascarilla de Noche</h3>
+                <p>Repara y revitaliza tu piel mientras duermes.</p>
+                <p class="price">$110,000 COP</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="productDetails" class="product-details">
+        <button class="back-button" onclick="backToGallery()">Volver a la Galería</button>
+        <h3 id="productTitle"></h3>
+        <p id="productDescription"></p>
+        <p class="price" id="productPrice"></p>
+    </div>
+
+    <button class="submit-button" onclick="openModal()">Registrarse</button>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2>Regístrate</h2>
+            <div class="form-group">
+                <label for="clientName">Nombre:</label>
+                <input type="text" id="clientName" placeholder="Ingresa tu nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="clientEmail">Email:</label>
+                <input type="email" id="clientEmail" placeholder="Ingresa tu email" required>
+            </div>
+            <button class="submit-button" onclick="submitForm()">Enviar</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Society. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    const products = {
+        moisturizer: {
+            title: "Crema Hidratante",
+            description: "Hidrata y nutre tu piel en profundidad. Contiene ingredientes naturales que mejoran la textura y apariencia de la piel.",
+            price: "$120,000 COP"
+        },
+        serum: {
+            title: "Sérum de Vitamina C",
+            description: "Ilumina y rejuvenece tu piel. Con un alto contenido de antioxidantes, combate los signos del envejecimiento.",
+            price: "$140,000 COP"
+        },
+        mask: {
+            title: "Mascarilla de Noche",
+            description: "Repara y revitaliza tu piel mientras duermes. Formulada con extractos botánicos que regeneran la piel.",
+            price: "$110,000 COP"
+        }
+    };
+
+    function showDetails(product) {
+        const details = products[product];
+        document.getElementById('productTitle').innerText = details.title;
+        document.getElementById('productDescription').innerText = details.description;
+        document.getElementById('productPrice').innerText = details.price;
+        document.querySelector('.gallery').style.display = 'none';
+        document.getElementById('productDetails').style.display = 'block';
+    }
+
+    function backToGallery() {
+        document.getElementById('productDetails').style.display = 'none';
+        document.querySelector('.gallery').style.display = 'flex';
+    }
+
+    function openModal() {
+        document.getElementById('modal').style.display = 'flex';
+    }
+
+    function submitForm() {
+        const name = document.getElementById('clientName').value;
+        const email = document.getElementById('clientEmail').value;
+        if (name && email) {
+            alert(`Gracias por registrarte, ${name}!`);
+            document.getElementById('modal').style.display = 'none';
+        } else {
+            alert('Por favor, completa todos los campos.');
+        }
+    }
+
+    window.onclick = function(event) {
+        if (event.target === document.getElementById('modal')) {
+            document.getElementById('modal').style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>
